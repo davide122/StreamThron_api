@@ -28,8 +28,4 @@ public ResponseEntity<?> getById(@PathVariable Long id) {
 	return ResponseEntity.ok(moviesservice.getMovieById(id));
 }
 
-@DeleteMapping("/{id}")
-public ResponseEntity<?> deleteMovies(@PathVariable Long id){
-	return ResponseEntity.ok(moviesservice.deleteMovie(id));
-}
 }
