@@ -50,10 +50,10 @@ public class AuthRunner implements ApplicationRunner {
 		System.out.println("Run...");
 		// Metodo da lanciare solo la prima volta
 		// Serve per salvare i ruoli nel DB
-	setRoleDefault();
-		createadmin();
-		createfilm();
-		
+//setRoleDefault();
+//	createadmin();
+//		createfilm();
+//	
 		
 	}
 
@@ -92,14 +92,21 @@ public void createfilm() {
 	    actors.add("Chris Evans");
 	    actors.add("Scarlett Johansson");
 	Movies movie = new Movies();
+	movie.setTitle("movies");
 	movie.setActors(actors);
 	movie.setDurata(180);
 	movie.setAnno(1999);
 	movie.setDescription("ciaondonidaonoidan");
 	movie.setGeneri(GenresMovie.ACTION);
-	movie.setPosterurl("www.gooogle.it");
+	movie.setPoster_url("www.gooogle.it");
 	movie.setRating(8.8);
-	movie.setTrailer("www.google.it");
+	movie.setTrailer_url("www.google.it");
+
 	moviesdb.save(movie);
+}
+
+
+public void SetFavourites() {
+	
 }
 }

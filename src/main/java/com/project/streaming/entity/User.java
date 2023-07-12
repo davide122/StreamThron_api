@@ -9,7 +9,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import com.project.streaming.model.Favorite;
+import com.project.streaming.model.Movies;
 
 
 @Data
@@ -32,7 +36,8 @@ public class User {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false, name = "last_name")
-    private String lastName;
+ private String lastName;
+
     
     
     // Il caricamento EAGER delle raccolte significa che vengono recuperate 
@@ -42,5 +47,12 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
+    
     private Set<Role> roles = new HashSet<>();
+    
+    
+    
+    @OneToMany(mappedBy = "user")
+    private List<Favorite> favorites;
+
 }
