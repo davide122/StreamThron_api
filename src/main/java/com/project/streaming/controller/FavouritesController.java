@@ -52,6 +52,15 @@ public class FavouritesController {
         Movies movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new EntityNotFoundException("Movie not found"));
 
+        boolean isMovieAlreadyFavorited = user.getFavorites().stream()
+                .anyMatch(favorite -> favorite.getMovie().getId().equals(movieId));
+        
+        if (isMovieAlreadyFavorited) {
+            // Gestisci l'aggiunta duplicata a tua discrezione
+            // Ad esempio, puoi restituire un messaggio di errore o ignorare l'aggiunta duplicata
+            System.out.println("Il film è già presente nei preferiti dell'utente");
+            return user.getFavorites();
+        }
         Favorite favorite = new Favorite();
         favorite.setUser(user);
         favorite.setMovie(movie);
@@ -86,6 +95,7 @@ return favorites;
         // Elimina il favorito
         favoriteRepository.delete(favorite);
     }
+    
 
     @GetMapping("/all")
     public List<Favorite> getAllFavorites() {
