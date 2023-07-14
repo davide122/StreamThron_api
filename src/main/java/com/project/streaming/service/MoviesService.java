@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.project.streaming.enums.GenresMovie;
 import com.project.streaming.model.Movies;
 import com.project.streaming.repository.IMoviesRepository;
 import com.project.streaming.repository.RoleRepository;
@@ -60,9 +60,10 @@ public String deleteMovie(Long id){
 	return "film Cancellato";
 }
 
-public List<Movies> findByTitle(String title){
-	return (List<Movies>) Moviesdb.findByTitle(title);
-}
+//Ricerca per parte del Nome	
+		public List<Movies> filterByPartialName(String title){
+			return Moviesdb.findByTitle(title);
+		}
 
 //Modifica film
 public Optional<?> putMovies(Movies movie, long id) {
@@ -71,5 +72,12 @@ public Optional<?> putMovies(Movies movie, long id) {
 	}else {
 		return Optional.of(Moviesdb.save(movie));
 	}
+}
+
+
+
+
+public List<Movies> getMovieGenres(GenresMovie generi) {
+    return Moviesdb.findByGeneri(generi);
 }
 }

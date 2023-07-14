@@ -51,7 +51,7 @@ public class AuthRunner implements ApplicationRunner {
 		// Metodo da lanciare solo la prima volta
 		// Serve per salvare i ruoli nel DB
 //setRoleDefault();
-//	createadmin();
+//createadmin();
 //		createfilm();
 //	
 		

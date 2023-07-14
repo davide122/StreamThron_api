@@ -1,6 +1,7 @@
 package com.project.streaming.controller;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.streaming.entity.User;
+import com.project.streaming.enums.GenresMovie;
 import com.project.streaming.model.Movies;
 import com.project.streaming.repository.IMoviesRepository;
 import com.project.streaming.repository.UserRepository;
@@ -47,9 +49,9 @@ public ResponseEntity<?> save(@RequestBody Movies movie) {
 	return ResponseEntity.ok(moviesservice.createMovie(movie));
 }
 
-@GetMapping(value="{title}")
-public ResponseEntity<?> findByFatturaAnnuale(@RequestParam String title){
-	return ResponseEntity.ok(moviesservice.findByTitle(title));
+@GetMapping(value="/all/title", params= {"title"})
+public ResponseEntity<?> filterByPartialName(@RequestParam String title){
+	return ResponseEntity.ok(moviesservice.filterByPartialName(title));
 }
 
 @PutMapping("/{id}")
@@ -61,8 +63,11 @@ public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Movies movie
 public ResponseEntity<?> delete(@PathVariable long id) {
 	return ResponseEntity.ok(moviesservice.deleteMovie(id));
 }
-
-
+@GetMapping("/category/{category}")
+public List<Movies> getMoviesByCategory(@PathVariable String category) {
+    GenresMovie genre = GenresMovie.valueOf(category.toUpperCase());
+    return moviedb.findByGeneri(genre);
+}
 //{
 //    "description": "ciaondongfgfidaonFoidan",
 //    "name": "movieFs",

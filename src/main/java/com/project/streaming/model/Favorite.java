@@ -1,8 +1,10 @@
 package com.project.streaming.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.streaming.entity.Role;
 import com.project.streaming.entity.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,16 +22,18 @@ import lombok.NoArgsConstructor;
 @Table(name = "favorites")
 public class Favorite {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+
+    @ManyToOne()
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "movie_id")
     private Movies movie;
-
-
+    
+    
 }

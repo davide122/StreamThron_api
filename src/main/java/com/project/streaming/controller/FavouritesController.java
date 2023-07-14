@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +40,7 @@ public class FavouritesController {
 
     @PostMapping("/{movieId}")
     @Transactional
-    public void addMovieToFavorites(@PathVariable Long movieId) {
+    public List<Favorite> addMovieToFavorites(@PathVariable Long movieId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
@@ -55,20 +56,47 @@ public class FavouritesController {
         favorite.setUser(user);
         favorite.setMovie(movie);
 
-       
-
         user.getFavorites().add(favorite);
         userRepository.save(user);
-        System.out.println(user);
-        System.out.println(favorite);
+
+        // Carica i dettagli del film associato a ogni preferito
+        List<Favorite> favorites = user.getFavorites();
+        favorites.forEach(fav -> {
+            Movies favMovie = fav.getMovie();
+            
+            
+        });
+return favorites;
+     
+
+           
     }
 
 
     @DeleteMapping("/{favoriteId}")
     public void removeFavorite(@PathVariable Long favoriteId) {
-        favoriteRepository.deleteById(favoriteId);
+        Favorite favorite = favoriteRepository.findById(favoriteId)
+                .orElseThrow(() -> new EntityNotFoundException("Favorite not found"));
+
+        // Rimuovi il riferimento al favorito dall'utente senza eliminare il film associato
+        User user = favorite.getUser();
+        user.getFavorites().remove(favorite);
+        userRepository.save(user);
+
+        // Elimina il favorito
+        favoriteRepository.delete(favorite);
     }
 
-    // Altri metodi per gestire le operazioni CRUD come la visualizzazione dei film preferiti di un utente, ecc.
+    @GetMapping("/all")
+    public List<Favorite> getAllFavorites() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        return user.getFavorites();
+    }
+
 
 }
