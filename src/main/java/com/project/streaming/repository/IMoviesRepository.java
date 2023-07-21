@@ -9,8 +9,6 @@ import com.project.streaming.model.Movies;
 
 @Repository
 public interface IMoviesRepository  extends JpaRepository<Movies, Long> {
-	public List<Movies> findByTitle(String title);
-	
-	 public List<Movies> findByGeneri(GenresMovie generi);
+	List<Movies> findByTitleContainingIgnoreCase(String titolo);
 
 }

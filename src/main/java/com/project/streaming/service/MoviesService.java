@@ -2,6 +2,7 @@ package com.project.streaming.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,10 +61,6 @@ public String deleteMovie(Long id){
 	return "film Cancellato";
 }
 
-//Ricerca per parte del Nome	
-		public List<Movies> filterByPartialName(String title){
-			return Moviesdb.findByTitle(title);
-		}
 
 //Modifica film
 public Optional<?> putMovies(Movies movie, long id) {
@@ -76,8 +73,4 @@ public Optional<?> putMovies(Movies movie, long id) {
 
 
 
-
-public List<Movies> getMovieGenres(GenresMovie generi) {
-    return Moviesdb.findByGeneri(generi);
-}
 }

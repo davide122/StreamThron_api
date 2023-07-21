@@ -49,11 +49,6 @@ public ResponseEntity<?> save(@RequestBody Movies movie) {
 	return ResponseEntity.ok(moviesservice.createMovie(movie));
 }
 
-@GetMapping(value="/all/title", params= {"title"})
-public ResponseEntity<?> filterByPartialName(@RequestParam String title){
-	return ResponseEntity.ok(moviesservice.filterByPartialName(title));
-}
-
 @PutMapping("/{id}")
 public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Movies movie) {
 	return ResponseEntity.ok(moviesservice.putMovies(movie, id));
@@ -63,11 +58,8 @@ public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Movies movie
 public ResponseEntity<?> delete(@PathVariable long id) {
 	return ResponseEntity.ok(moviesservice.deleteMovie(id));
 }
-@GetMapping("/category/{category}")
-public List<Movies> getMoviesByCategory(@PathVariable String category) {
-    GenresMovie genre = GenresMovie.valueOf(category.toUpperCase());
-    return moviedb.findByGeneri(genre);
-}
+
+
 //{
 //    "description": "ciaondongfgfidaonFoidan",
 //    "name": "movieFs",

@@ -51,9 +51,9 @@ public class AuthRunner implements ApplicationRunner {
 		// Metodo da lanciare solo la prima volta
 		// Serve per salvare i ruoli nel DB
 //setRoleDefault();
-//createadmin();
+
 //		createfilm();
-//	
+//	createadmin();
 		
 	}
 
@@ -74,16 +74,18 @@ public class AuthRunner implements ApplicationRunner {
 
 	
 public void createadmin() {
-	RegisterDto admin = new RegisterDto();
+	RegisterDto aadmin = new RegisterDto();
 	Set<String> ruolo=new HashSet<String>();
 	ruolo.add("ADMIN");
-	admin.setEmail("admin@gmail.com");
-	admin.setLastName("admin");
-	admin.setName("admin");
-	admin.setPassword("admin");
-	admin.setRoles(ruolo);
-	admin.setUsername("admin");
-	auth.register(admin);
+	ruolo.add("MODERATOR");
+	ruolo.add("USER");
+	aadmin.setEmail("newadmin");
+	aadmin.setLastName("newadmin");
+	aadmin.setName("newadmin");
+	aadmin.setPassword("newadmin");
+	aadmin.setRoles(ruolo);
+	aadmin.setUsername("newadmin");
+	auth.register(aadmin);
 }
 
 public void createfilm() {

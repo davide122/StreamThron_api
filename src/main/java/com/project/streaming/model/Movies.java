@@ -42,7 +42,7 @@ private GenresMovie generi;
 	@Column(nullable = false)
 private Integer durata;
 private double rating;
-@Column(nullable = false)
+@Column()
 private List<String> actors;
 
 @Column(nullable = false, length = 100000000)
